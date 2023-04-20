@@ -1,12 +1,14 @@
 package com.example.cryptotradingsystem.repository;
 
 import com.example.cryptotradingsystem.model.AggregatedPrice;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-@Repository
 public interface AggregatedPriceRepository extends JpaRepository<AggregatedPrice, Long> {
-    List<AggregatedPrice> findTopByTradingPairOrderByTimestampDesc(String tradingPair);
+
+    @Query("SELECT ap FROM AggregatedPrice ap ORDER BY ap.lastUpdated DESC")
+    List<AggregatedPrice> findLatestPrices(Pageable pageable);
 }

@@ -1,33 +1,59 @@
 package com.example.cryptotradingsystem.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transactions")
-@Data
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "crypto_currency_id", nullable = false)
+    private CryptoCurrency cryptoCurrency;
 
-    @Column(name = "trading_pair", nullable = false)
-    private String tradingPair;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TradeType type;
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    @Column(nullable = false)
+    private BigDecimal price;
 
-    @Column(name = "amount", nullable = false)
-    private Double amount;
+    @Column(nullable = false)
+    private BigDecimal amount;
 
-    @Column(name = "price", nullable = false)
-    private Double price;
+    public CryptoCurrency getCryptoCurrency() {
+        return cryptoCurrency;
+    }
 
-    @Column(name = "timestamp", nullable = false)
-    private LocalDateTime timestamp;
+    public void setCryptoCurrency(CryptoCurrency cryptoCurrency) {
+        this.cryptoCurrency = cryptoCurrency;
+    }
+
+    public TradeType getType() {
+        return type;
+    }
+
+    public void setType(TradeType type) {
+        this.type = type;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 }
