@@ -84,6 +84,9 @@ response example:
 GET method: http://localhost:8080/api/wallet/balance
 response example: 50000.18
 
+![image](https://user-images.githubusercontent.com/6282021/233561961-a1543a20-224b-4fb1-a005-b44815523d86.png)
+
+
 5. Create an api to retrieve the user trading history.
 request GET: http://localhost:8080/api/trade/history
 
