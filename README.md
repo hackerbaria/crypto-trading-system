@@ -10,6 +10,10 @@ we have a scheduler run per 10s and get Price aggregation from the source below 
 
 2. Create an api to retrieve the latest best aggregated price.
 http://localhost:8080/api/price/latest
+
+![image](https://user-images.githubusercontent.com/6282021/233561616-dc0e32ed-66d1-48c7-9df5-0512ccafb75f.png)
+
+
 example response:
 [
 {
@@ -39,6 +43,9 @@ example response:
 price
 - example for buy:
 POST METHOD: localhost:8080/api/trade/execute
+
+![image](https://user-images.githubusercontent.com/6282021/233561779-d2c0cf01-0dd9-46e8-a1de-4f9b8156ed42.png)
+
 request body: 
 {
     "symbol": "ETHUSDT",
@@ -79,6 +86,10 @@ response example: 50000.18
 
 5. Create an api to retrieve the user trading history.
 request GET: http://localhost:8080/api/trade/history
+
+![image](https://user-images.githubusercontent.com/6282021/233561712-d65f01e0-a6c1-4be1-a345-beb1b759f31c.png)
+
+
 response example: 
 [
 {
