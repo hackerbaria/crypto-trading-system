@@ -1,7 +1,6 @@
 package com.example.cryptotradingsystem.dto;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class AggregatedPriceDto {
 

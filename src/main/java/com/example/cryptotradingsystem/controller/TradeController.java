@@ -4,15 +4,11 @@ package com.example.cryptotradingsystem.controller;
 import com.example.cryptotradingsystem.dto.TradeRequestDto;
 import com.example.cryptotradingsystem.dto.TradeResponseDto;
 import com.example.cryptotradingsystem.dto.TransactionDto;
-import com.example.cryptotradingsystem.dto.WalletDto;
-import com.example.cryptotradingsystem.model.Trade;
 import com.example.cryptotradingsystem.service.TradeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
