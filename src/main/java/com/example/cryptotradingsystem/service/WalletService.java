@@ -5,6 +5,7 @@ import com.example.cryptotradingsystem.dto.WalletDto;
 import com.example.cryptotradingsystem.exception.InsufficientBalanceException;
 import com.example.cryptotradingsystem.exception.WalletNotFoundException;
 import com.example.cryptotradingsystem.model.Wallet;
+import com.example.cryptotradingsystem.repository.UserRepository;
 import com.example.cryptotradingsystem.repository.WalletRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +20,13 @@ public class WalletService {
 
     private final WalletRepository walletRepository;
 
-    public WalletService(WalletRepository walletRepository) {
+    private final UserService userService;
+
+    public WalletService(WalletRepository walletRepository, UserService userService) {
         this.walletRepository = walletRepository;
+        this.userService = userService;
     }
 
-    public WalletDto getWalletBalance() {
-        List<Wallet> wallets = walletRepository.findAll();
-        Map<String, BigDecimal> balances = new HashMap<>();
-        for (Wallet wallet : wallets) {
-            String symbol = wallet.getCryptoCurrency().getSymbol();
-            BigDecimal balance = wallet.getBalance();
-            balances.put(symbol, balance);
-        }
-        return new WalletDto(balances);
-    }
 
     public Wallet getWallet(String symbol) {
         Optional<Wallet> walletOptional = walletRepository.findByCryptoCurrencySymbol(symbol);
@@ -42,16 +36,27 @@ public class WalletService {
         return walletOptional.get();
     }
 
-    public void debitWallet(Wallet wallet, BigDecimal amount) {
-        if (wallet.getBalance().compareTo(amount) < 0) {
+    public void debitWallet(BigDecimal amount) {
+        BigDecimal oldBalance = userService.getBalance();
+        if (oldBalance.compareTo(amount) < 0) {
             throw new InsufficientBalanceException("Insufficient balance in wallet");
         }
-        wallet.setBalance(wallet.getBalance().subtract(amount));
+        BigDecimal newBalance = oldBalance.subtract(amount);
+        userService.updateBalance(newBalance);
+    }
+
+
+
+    public void creditWallet(BigDecimal amount) {
+        BigDecimal oldBalance = userService.getBalance();
+        BigDecimal newBalance = oldBalance.add(amount);
+        userService.updateBalance(newBalance);
+
+    }
+
+    public void save(Wallet wallet) {
         walletRepository.save(wallet);
     }
 
-    public void creditWallet(Wallet wallet, BigDecimal amount) {
-        wallet.setBalance(wallet.getBalance().add(amount));
-        walletRepository.save(wallet);
-    }
+
 }

@@ -36,29 +36,12 @@ public class HoubiPriceService implements PriceService {
                 .map(binanceDto -> new PriceDto(
                         binanceDto.getSymbol(),
                         binanceDto.getBid(),
+                        binanceDto.getBidSize(),
                         binanceDto.getAsk(),
+                        binanceDto.getAskSize(),
                         "Huobi"))
                 .collect(Collectors.toList());
 
         return priceDtoList;
-    }
-
-    @Override
-    public TradeResponseDto tradeBasedOnLatestPrice(TradeRequestDto tradeRequestDto) {
-        String url = "https://api.huobi.pro/market/tickers";
-        ResponseEntity<HoubiPriceResponseDto> response = externalPriceService.getPriceData(url, HoubiPriceResponseDto.class);
-        HoubiPriceDto bestPrice = getBestPrice(response.getBody().getData(), "btcusdt");
-        BigDecimal quantity = tradeRequestDto.getAmount();
-        BigDecimal price = bestPrice.getBid();
-        BigDecimal amount = quantity.multiply(price);
-        return new TradeResponseDto("success", "btcusdt", TradeType.BUY.name(),price, amount );
-    }
-
-
-    private HoubiPriceDto getBestPrice(List<HoubiPriceDto> prices, String symbol) {
-        return prices.stream()
-                .filter(price -> price.getSymbol().equals(symbol))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("No prices found for symbol: " + symbol));
     }
 }

@@ -1,21 +1,26 @@
 package com.example.cryptotradingsystem.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class TransactionDto {
     private Long id;
     private String symbol;
     private String transactionType;
+    private BigDecimal qty;
     private BigDecimal price;
-    private BigDecimal amount;
-    private Long timestamp;
+    private String sourceChange;
+    private String result;
+    private LocalDateTime timestamp;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public TransactionDto(String symbol, String transactionType, BigDecimal qty, BigDecimal price, String sourceChange, String result, LocalDateTime timestamp) {
+        this.symbol = symbol;
+        this.transactionType = transactionType;
+        this.qty = qty;
+        this.price = price;
+        this.sourceChange = sourceChange;
+        this.result = result;
+        this.timestamp = timestamp;
     }
 
     public String getSymbol() {
@@ -34,6 +39,14 @@ public class TransactionDto {
         this.transactionType = transactionType;
     }
 
+    public BigDecimal getQty() {
+        return qty;
+    }
+
+    public void setQty(BigDecimal qty) {
+        this.qty = qty;
+    }
+
     public BigDecimal getPrice() {
         return price;
     }
@@ -42,26 +55,27 @@ public class TransactionDto {
         this.price = price;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public String getSourceChange() {
+        return sourceChange;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setSourceChange(String sourceChange) {
+        this.sourceChange = sourceChange;
     }
 
-    public Long getTimestamp() {
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public TransactionDto(String symbol, String transactionType, BigDecimal price, BigDecimal amount) {
-        this.symbol = symbol;
-        this.transactionType = transactionType;
-        this.price = price;
-        this.amount = amount;
     }
 }

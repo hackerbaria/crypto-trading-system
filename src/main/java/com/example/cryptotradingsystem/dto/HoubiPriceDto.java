@@ -6,6 +6,8 @@ public class HoubiPriceDto {
     private String symbol;
     private BigDecimal bid;
     private BigDecimal ask;
+    private BigDecimal bidSize;
+    private BigDecimal askSize;
 
     public String getSymbol() {
         return symbol;
@@ -29,5 +31,21 @@ public class HoubiPriceDto {
 
     public void setAsk(BigDecimal ask) {
         this.ask = ask;
+    }
+
+    public BigDecimal getBidSize() {
+        return bidSize;
+    }
+
+    public void setBidSize(BigDecimal bidSize) {
+        this.bidSize = bidSize;
+    }
+
+    public BigDecimal getAskSize() {
+        return askSize;
+    }
+
+    public void setAskSize(BigDecimal askSize) {
+        this.askSize = askSize;
     }
 }

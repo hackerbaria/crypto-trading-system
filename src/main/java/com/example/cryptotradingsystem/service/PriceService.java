@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface PriceService {
     List<PriceDto> getLatestPrice();
-    TradeResponseDto tradeBasedOnLatestPrice(TradeRequestDto tradeRequestDto);
 }

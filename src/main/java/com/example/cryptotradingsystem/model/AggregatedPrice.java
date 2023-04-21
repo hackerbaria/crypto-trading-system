@@ -18,8 +18,14 @@ public class AggregatedPrice {
     @Column(name = "best_bid_price", nullable = false)
     private BigDecimal bestBidPrice;
 
+    @Column(name = "bid_qty", nullable = false)
+    private BigDecimal bidQty;
+
     @Column(name = "best_ask_price", nullable = false)
     private BigDecimal bestAskPrice;
+
+    @Column(name = "ask_qty", nullable = false)
+    private BigDecimal askQty;
 
     @Column(name = "bid_price_source_exchange", nullable = false)
     private String bidPriceSourceExchange;
@@ -44,12 +50,14 @@ public class AggregatedPrice {
     public AggregatedPrice() {
     }
 
-    public AggregatedPrice(String tradingPair, BigDecimal bestBidPrice, BigDecimal bestAskPrice, String bidPriceSourceExchange, String askPriceSourceExchange) {
+    public AggregatedPrice(String tradingPair, BigDecimal bestBidPrice, BigDecimal bidQty, BigDecimal bestAskPrice, BigDecimal askQty, String bidPriceSourceExchange, String askPriceSourceExchange) {
         this.tradingPair = tradingPair;
         this.bestBidPrice = bestBidPrice;
         this.bestAskPrice = bestAskPrice;
         this.bidPriceSourceExchange = bidPriceSourceExchange;
         this.askPriceSourceExchange = askPriceSourceExchange;
+        this.bidQty = bidQty;
+        this.askQty = askQty;
         this.lastUpdated = LocalDateTime.now();
     }
 
@@ -95,6 +103,22 @@ public class AggregatedPrice {
 
     public LocalDateTime getLastUpdated() {
         return lastUpdated;
+    }
+
+    public BigDecimal getBidQty() {
+        return bidQty;
+    }
+
+    public void setBidQty(BigDecimal bidQty) {
+        this.bidQty = bidQty;
+    }
+
+    public BigDecimal getAskQty() {
+        return askQty;
+    }
+
+    public void setAskQty(BigDecimal askQty) {
+        this.askQty = askQty;
     }
 
     public void setLastUpdated(LocalDateTime lastUpdated) {

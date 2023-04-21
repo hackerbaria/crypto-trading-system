@@ -3,6 +3,7 @@ package com.example.cryptotradingsystem.controller;
 
 import com.example.cryptotradingsystem.dto.TradeRequestDto;
 import com.example.cryptotradingsystem.dto.TradeResponseDto;
+import com.example.cryptotradingsystem.dto.TransactionDto;
 import com.example.cryptotradingsystem.dto.WalletDto;
 import com.example.cryptotradingsystem.model.Trade;
 import com.example.cryptotradingsystem.service.TradeService;
@@ -26,27 +27,19 @@ public class TradeController {
 
 
 
-    @PostMapping("/buy")
-    public ResponseEntity<TradeResponseDto> buy(@RequestBody TradeRequestDto tradeRequestDto) {
-        TradeResponseDto tradeResponseDto = tradeService.buy(tradeRequestDto);
+    // Create an api which allows users to trade based on the latest best aggregated
+    //price.
+    @PostMapping("/execute")
+    public ResponseEntity<TradeResponseDto> trade(@RequestBody TradeRequestDto tradeRequestDto) {
+        TradeResponseDto tradeResponseDto = tradeService.trade(tradeRequestDto);
         return new ResponseEntity<>(tradeResponseDto, HttpStatus.OK);
     }
 
-    @PostMapping("/sell")
-    public ResponseEntity<TradeResponseDto> sell(@RequestBody TradeRequestDto tradeRequestDto) {
-        TradeResponseDto tradeResponseDto = tradeService.sell(tradeRequestDto);
-        return new ResponseEntity<>(tradeResponseDto, HttpStatus.OK);
-    }
+    // Create an api to retrieve the user trading history
 
     @GetMapping("/history")
-    public ResponseEntity<List<TradeResponseDto>> getTradeHistory() {
-        List<TradeResponseDto> tradeResponseDtoList = tradeService.getTradeHistory();
+    public ResponseEntity<List<TransactionDto>> getTradeHistory() {
+        List<TransactionDto> tradeResponseDtoList = tradeService.getTradeHistory();
         return new ResponseEntity<>(tradeResponseDtoList, HttpStatus.OK);
-    }
-
-    @GetMapping("/balance")
-    public ResponseEntity<WalletDto> getWalletBalance() {
-        WalletDto walletDto = tradeService.getWalletBalance();
-        return new ResponseEntity<>(walletDto, HttpStatus.OK);
     }
 }

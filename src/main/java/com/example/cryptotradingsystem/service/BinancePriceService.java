@@ -44,17 +44,4 @@ public class BinancePriceService implements PriceService {
 
         return priceDtoList;
     }
-
-    @Override
-    public TradeResponseDto tradeBasedOnLatestPrice(TradeRequestDto tradeRequestDto) {
-        String url = "https://api.binance.com/api/v3/ticker/bookTicker";
-        ResponseEntity<BinanceDto[]> response = externalPriceService.getPriceData(url, BinanceDto[].class);
-        BinanceDto bestPrice = Arrays.stream(response.getBody())
-                .min(Comparator.comparing(BinanceDto::getBidPrice))
-                .orElseThrow(() -> new RuntimeException("No prices found"));
-        BigDecimal quantity = tradeRequestDto.getAmount();
-        BigDecimal price = bestPrice.getBidPrice();
-        BigDecimal amount = quantity.multiply(price);
-        return new TradeResponseDto("success", "btcusdt", TradeType.BUY.name(),price, amount );
-    }
 }

@@ -15,8 +15,8 @@ public class Wallet {
     @JoinColumn(name = "crypto_currency_id", nullable = false)
     private CryptoCurrency cryptoCurrency;
 
-    @Column(nullable = false)
-    private BigDecimal balance;
+    @Column(name = "qty")
+    private BigDecimal qty;
 
     public CryptoCurrency getCryptoCurrency() {
         return cryptoCurrency;
@@ -26,11 +26,11 @@ public class Wallet {
         this.cryptoCurrency = cryptoCurrency;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
+    public BigDecimal getQty() {
+        return qty;
     }
 
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
+    public void setQty(BigDecimal qty) {
+        this.qty = qty;
     }
 }

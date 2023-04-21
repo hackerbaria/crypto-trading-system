@@ -5,6 +5,7 @@ import javax.persistence.Table;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "trade")
@@ -12,10 +13,6 @@ public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "crypto_currency_id", nullable = false)
@@ -28,33 +25,32 @@ public class Trade {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "amount", nullable = false)
-    private BigDecimal amount;
+    @Column(name = "qty", nullable = false)
+    private BigDecimal qty;
+
+    @Column(name = "result", nullable = false)
+    private String result;
+
+    @Column(name = "source_exchange", nullable = false)
+    private String sourceExchange;
+
 
     @Column(name = "timestamp", nullable = false)
-    private Long timestamp;
+    private LocalDateTime timestamp;
+
+    @PrePersist
+    public void setTimestamp() {
+        this.timestamp = LocalDateTime.now();
+    }
 
     public Trade() {}
 
-    public Trade(User user, CryptoCurrency cryptoCurrency, TradeType type, BigDecimal price, BigDecimal amount, Long timestamp) {
-        this.user = user;
-        this.cryptoCurrency = cryptoCurrency;
+    public Trade(TradeType type, BigDecimal price, BigDecimal qty, String result, String sourceExchange) {
         this.type = type;
         this.price = price;
-        this.amount = amount;
-        this.timestamp = timestamp;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+        this.qty = qty;
+        this.result = result;
+        this.sourceExchange = sourceExchange;
     }
 
     public CryptoCurrency getCryptoCurrency() {
@@ -81,19 +77,41 @@ public class Trade {
         this.price = price;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getQty() {
+        return qty;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setQty(BigDecimal qty) {
+        this.qty = qty;
     }
 
-    public Long getTimestamp() {
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getSourceExchange() {
+        return sourceExchange;
+    }
+
+    public void setSourceExchange(String sourceExchange) {
+        this.sourceExchange = sourceExchange;
+    }
+
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Long timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+
 }

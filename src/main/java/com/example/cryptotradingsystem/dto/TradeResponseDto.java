@@ -1,5 +1,7 @@
 package com.example.cryptotradingsystem.dto;
 
+import com.example.cryptotradingsystem.model.Trade;
+
 import java.math.BigDecimal;
 
 public class TradeResponseDto {
@@ -7,8 +9,8 @@ public class TradeResponseDto {
     private String result;
     private String symbol;
     private String tradeType;
+    private BigDecimal qty;
     private BigDecimal price;
-    private BigDecimal amount;
 
     public Long getTradeId() {
         return tradeId;
@@ -50,27 +52,21 @@ public class TradeResponseDto {
         this.price = price;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public TradeResponseDto(String result, String symbol, String tradeType, BigDecimal price, BigDecimal amount) {
+    public TradeResponseDto(String result, String symbol, String tradeType, BigDecimal qty, BigDecimal price) {
         this.result = result;
         this.symbol = symbol;
         this.tradeType = tradeType;
+        this.qty = qty;
         this.price = price;
-        this.amount = amount;
     }
 
-    public TradeResponseDto(String status, TransactionDto transaction) {
+    public TradeResponseDto(String status, Trade trade) {
         this.result = status;
-        this.symbol = transaction.getSymbol();
-        this.tradeType = transaction.getTransactionType();
-        this.price = transaction.getPrice();
-        this.amount = transaction.getAmount();
+        this.symbol = trade.getCryptoCurrency().getSymbol();
+        this.tradeType = trade.getType().name();
+        this.price = trade.getPrice();
+        this.qty = trade.getQty();
+        this.tradeId = trade.getId();
     }
 }

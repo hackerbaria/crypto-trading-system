@@ -49,6 +49,7 @@ public class PriceAggregator {
                     maxBidPrice.ifPresent(priceDto -> {
                         aggregatedPrice.setBestBidPrice(priceDto.getBidPrice());
                         aggregatedPrice.setBidPriceSourceExchange(priceDto.getSourceExchange());
+                        aggregatedPrice.setBidQty(priceDto.getBidQty());
                     });
 
                     Optional<PriceDto> minAskPrice = mergedList.stream()
@@ -57,6 +58,7 @@ public class PriceAggregator {
                     minAskPrice.ifPresent(priceDto -> {
                         aggregatedPrice.setBestAskPrice(priceDto.getAskPrice());
                         aggregatedPrice.setAskPriceSourceExchange(priceDto.getSourceExchange());
+                        aggregatedPrice.setAskQty(priceDto.getAskQty());
                     });
                     return aggregatedPrice;
                 })
